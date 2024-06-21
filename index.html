@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./data.js"></script>
+    <style>
+        #container {
+            display: flex;
+            gap: 20px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        #container img {
+            height: 150px;
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    <script>
+        const container = document.getElementById("container");
+
+        // Load images into the container
+        Object.keys(data).forEach((key) => {
+            const imagePath = data[key];
+            const img = document.createElement("img");
+            img.src = imagePath;
+            img.alt = key;
+            container.appendChild(img);
+        });
+
+        // Clone images to create a seamless scroll effect
+        Object.keys(data).forEach((key) => {
+            const imagePath = data[key];
+            const img = document.createElement("img");
+            img.src = imagePath;
+            img.alt = key;
+            container.appendChild(img.cloneNode());
+        });
+
+        // Auto-scroll functionality
+        function scrollContainer() {
+            if (container.scrollLeft >= container.scrollWidth / 2) {
+                container.scrollLeft = 0;
+            } else {
+                container.scrollLeft += 1;
+            }
+        }
+
+        // Set interval for auto-scrolling
+        setInterval(scrollContainer, 20); // Adjust the interval for desired scroll speed
+    </script>
+</body>
+</html>
